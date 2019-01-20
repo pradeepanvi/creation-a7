@@ -1,15 +1,22 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-6 offset-md-3 print_hide">
         <h3>Get Quatation</h3>
         <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
           <mat-form-field class="w-100">
               <input matInput placeholder="Invoice No:" formControlName="invoice_no">
           </mat-form-field>
-          <mat-form-field class="w-100">
-              <input matInput placeholder="To:" formControlName="to">
+          <mat-form-field class="w-50">
+              <input matInput placeholder="Comapany Name:" formControlName="company">
           </mat-form-field>
-          <mat-form-field class="w-100">
+          <mat-radio-group class="w-50" formControlName="comapny_register">
+              <mat-radio-button value="register">Register</mat-radio-button>
+              <mat-radio-button value="unregister">Unregister</mat-radio-button>
+          </mat-radio-group>
+          <mat-form-field class="w-50" *ngIf="gst_no_edit">
+              <input matInput placeholder="GST No:" formControlName="gst_no">
+          </mat-form-field>
+          <mat-form-field [ngClass]="gst_no_edit ? 'w-50' : 'w-100'">
               <input matInput placeholder="Date:" formControlName="date">
           </mat-form-field>
          <mat-form-field>
@@ -61,19 +68,28 @@
           <table class="table">
               <thead>
                 <tr>
-                  <td colspan="7">
+                  <td colspan="4">
                     <h4>Creation Graphics</h4>
                     CN-61/117, BG-6, Sonia Camp<br>
                     T-Hut, Paschim Vihar,<br>
-                    New Delhi 110063
+                    New Delhi 110063<br>
+                    GSTIN No.: 07BKGPK7828D1Z3
+                  </td>
+                  <td colspan="3">
+                    <h4>&nbsp;</h4>
+                    Phone No: +91-999-0571-016,<br>
+                    9910537889<br>
+                    E-Mail: creationgraphicss@gmail.com<br>
+                    info@creationgraphicss.com<br>
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="4">To: {{invoiceForm.value.to}}</td>
+                  <td colspan="4">Comapny: {{invoiceForm.value.company}}</td>
                   <td colspan="3">Invoice No.	{{invoiceForm.value.invoice_no}}</td>
                 </tr>
                 <tr>
-                  <td colspan="4"></td>
+                  <td colspan="4" *ngIf="!gst_no_edit"></td>
+                  <td colspan="4" *ngIf="gst_no_edit">GST No: {{invoiceForm.value.gst_no}}</td>
                   <td colspan="3">Date.: {{invoiceForm.value.date}}</td>
                 </tr>
                 <tr>
@@ -82,7 +98,7 @@
                   <th>HSN</th>
                   <th>Quantity</th>
                   <th>Rate</th>
-                  <th colspan="2">Total</th>
+                  <th colspan="2" class="text-right">Total</th>
                 </tr>
               </thead>
               <tbody>
@@ -96,7 +112,7 @@
                   <td></td>
                   <td>{{invoiceForm.value.card_q}}</td>
                   <td>{{invoiceForm.value.card.price}}</td>
-                  <td colspan="2">{{invoiceForm.value.card_q * invoiceForm.value.card.price}}</td>
+                  <td colspan="2" class="text-right">{{invoiceForm.value.card_q * invoiceForm.value.card.price}}</td>
                 </tr>
                 <tr>
                   <td>2</td>
@@ -108,7 +124,7 @@
                   <td></td>
                   <td>{{invoiceForm.value.holder_q}}</td>
                   <td>{{invoiceForm.value.holder.price}}</td>
-                  <td colspan="2">{{invoiceForm.value.holder_q * invoiceForm.value.holder.price}}</td>
+                  <td colspan="2" class="text-right">{{invoiceForm.value.holder_q * invoiceForm.value.holder.price}}</td>
                 </tr>
                 <tr>
                   <td>3</td>
@@ -120,15 +136,15 @@
                   <td></td>
                   <td>{{invoiceForm.value.lanyard_q}}</td>
                   <td>{{invoiceForm.value.lanyard.price}}</td>
-                  <td colspan="2">{{invoiceForm.value.lanyard_q * invoiceForm.value.lanyard.price}}</td>
+                  <td colspan="2" class="text-right">{{invoiceForm.value.lanyard_q * invoiceForm.value.lanyard.price}}</td>
                 </tr>
                 <tr *ngIf="discount_edit">
                   <th colspan="5">Discount Price</th>
-                  <th colspan="2">{{discount}}</th>
+                  <th colspan="2" class="text-right">{{discount}}</th>
                 </tr>
                 <tr>
                   <th colspan="5">Total before tax</th>
-                  <th colspan="2">{{priceBeforeTax}}</th>
+                  <th colspan="2" class="text-right">{{priceBeforeTax}}</th>
                 </tr>
                 <tr *ngIf="location_edit">
                   <th>S.No.</th>
@@ -158,8 +174,8 @@
                   <td>{{holder_gst}}</td>
                   <td>9%</td>
                   <td>{{holder_gst}}</td>
-                  <td>Add: GST</td>
-                  <td>{{(card_gst + holder_gst + lanyard_gst).toFixed(2)}}</td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr *ngIf="location_edit">
                   <td>3</td>
@@ -167,8 +183,8 @@
                   <td>{{lanyard_gst}}</td>
                   <td>9%</td>
                   <td>{{lanyard_gst}}</td>
-                  <td>Add: SCGST</td>
-                  <td>{{(card_gst + holder_gst + lanyard_gst).toFixed(2)}}</td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr *ngIf="!location_edit">
                   <th>S.No.</th>
@@ -194,16 +210,28 @@
                   <td>3</td>
                   <td>18%</td>
                   <td colspan="3">{{lanyard_igst}}</td>
-                  <td>Add: IGST</td>
-                  <td>{{(card_igst + holder_igst + lanyard_igst).toFixed(2)}}</td>
+                  <td></td>
+                  <td></td>
                 </tr>
-                <tr>
-                  <th colspan="6">Total Tax</th>
-                  <th>{{total_tax.toFixed(2)}}</th>
+                <tr *ngIf="location_edit">
+                  <th colspan="2">Total Tax</th>
+                  <th>{{(card_gst + holder_gst + lanyard_gst).toFixed(2)}}</th>
+                  <th></th>
+                  <th>{{(card_gst + holder_gst + lanyard_gst).toFixed(2)}}</th>
+                  <th></th>
+                  <th class="text-right">{{total_tax.toFixed(2)}}</th>
+                </tr>
+                <tr *ngIf="!location_edit">
+                  <th colspan="2">Total Tax</th>
+                  <th>{{(card_igst + holder_igst + lanyard_igst).toFixed(2)}}</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th class="text-right">{{total_tax.toFixed(2)}}</th>
                 </tr>
                 <tr>
                   <th colspan="6">Gross Total</th>
-                  <th>{{gross_total.toFixed()}}</th>
+                  <th class="text-right">{{gross_total.toFixed()}}</th>
                 </tr>
                 </tbody>
               </table>

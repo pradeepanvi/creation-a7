@@ -1,3 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@media print{
+    .print_hide{
+        display: none;
+    }
+    table, tr, td, th, tbody, thead, tfoot {
+        page-break-inside: auto !important;
+    }
+    table tr.ng-star-inserted th{
+        background: #fff;
+    }
+    table th{
+        background: #ccc;
+    }
+    .table th, .table td{
+        padding:0.75rem 0.75rem;
+    }
+}

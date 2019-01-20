@@ -1,5 +1,6 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import * as jsPDF from 'jspdf';
 
 export interface Product {
   price: number;
@@ -37,6 +38,9 @@ export class AppComponent implements OnInit, DoCheck {
 
   location_edit = true;
   location:any;
+
+  gst_no_edit = true;
+  company_status:any;
 
   lanyards: Product[] = [
     {price: 30, viewValue: '12mm Digital Lanyards', desc: [
@@ -97,6 +101,14 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(){
+    this.company_status = this.invoiceForm.value.comapny_register;
+    console.log(this.company_status);
+    if(this.company_status == 'register'){
+      this.gst_no_edit = true;
+    } else {
+      this.gst_no_edit = false;
+    }
+
     this.location = this.invoiceForm.value.location.state;
     if(this.location == 'Delhi'){
       this.card_gst = ((this.invoiceForm.value.card_q * this.invoiceForm.value.card.price) * 18 / 100) / 2;
@@ -139,12 +151,15 @@ export class AppComponent implements OnInit, DoCheck {
 
   onSubmit(){
     console.log(this.invoiceForm.value);
+    window.print();
   }
 
   private initForm(){
     this.invoiceForm = new FormGroup({
       'invoice_no': new FormControl(),
-      'to' : new FormControl(),
+      'company' : new FormControl(),
+      'comapny_register': new FormControl('register'),
+      'gst_no' : new FormControl(),
       'date' : new FormControl(),
       'card' : new FormControl('', Validators.required),
       'card_q': new FormControl('1'),
