@@ -1,21 +1,213 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h3>Get Quatation</h3>
+        <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+          <mat-form-field class="w-100">
+              <input matInput placeholder="Invoice No:" formControlName="invoice_no">
+          </mat-form-field>
+          <mat-form-field class="w-100">
+              <input matInput placeholder="To:" formControlName="to">
+          </mat-form-field>
+          <mat-form-field class="w-100">
+              <input matInput placeholder="Date:" formControlName="date">
+          </mat-form-field>
+         <mat-form-field>
+            <mat-select placeholder="Select Cards" formControlName="card">
+              <mat-option *ngFor="let card of cards" [value]="card">
+                {{card.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="w-30">
+              <input matInput placeholder="Quantity" formControlName="card_q">
+          </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Select Holders" formControlName="holder">
+              <mat-option *ngFor="let holder of holders" [value]="holder">
+                {{holder.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="w-30">
+              <input matInput placeholder="Quantity" formControlName="holder_q">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Select Lanyards" formControlName="lanyard">
+              <mat-option *ngFor="let lanyard of lanyards" [value]="lanyard">
+                {{lanyard.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="w-30">
+              <input matInput placeholder="Quantity" formControlName="lanyard_q">
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <mat-select placeholder="Select Location" formControlName="location">
+              <mat-option *ngFor="let location of locations" [value]="location">
+                {{location.state}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="w-100">
+              <input matInput placeholder="Discount" formControlName="discount">
+          </mat-form-field>
+          
+          <button [disabled]="!invoiceForm.valid" type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      </div>
+      <div class="col-md-12">
+          <h3>Tax Invoice</h3>
+          <table class="table">
+              <thead>
+                <tr>
+                  <td colspan="7">
+                    <h4>Creation Graphics</h4>
+                    CN-61/117, BG-6, Sonia Camp<br>
+                    T-Hut, Paschim Vihar,<br>
+                    New Delhi 110063
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">To: {{invoiceForm.value.to}}</td>
+                  <td colspan="3">Invoice No.	{{invoiceForm.value.invoice_no}}</td>
+                </tr>
+                <tr>
+                  <td colspan="4"></td>
+                  <td colspan="3">Date.: {{invoiceForm.value.date}}</td>
+                </tr>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Description</th>
+                  <th>HSN</th>
+                  <th>Quantity</th>
+                  <th>Rate</th>
+                  <th colspan="2">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>{{invoiceForm.value.card.viewValue}} <br> 
+                    <ul class="small">
+                      <li *ngFor="let des of invoiceForm.value.card.desc">{{des.des}}</li>
+                    </ul>
+                  </td>
+                  <td></td>
+                  <td>{{invoiceForm.value.card_q}}</td>
+                  <td>{{invoiceForm.value.card.price}}</td>
+                  <td colspan="2">{{invoiceForm.value.card_q * invoiceForm.value.card.price}}</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>{{invoiceForm.value.holder.viewValue}} <br> 
+                    <ul class="small">
+                      <li *ngFor="let des of invoiceForm.value.holder.desc">{{des.des}}</li>
+                    </ul>
+                  </td>
+                  <td></td>
+                  <td>{{invoiceForm.value.holder_q}}</td>
+                  <td>{{invoiceForm.value.holder.price}}</td>
+                  <td colspan="2">{{invoiceForm.value.holder_q * invoiceForm.value.holder.price}}</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>{{invoiceForm.value.lanyard.viewValue}} <br> 
+                    <ul class="small">
+                      <li *ngFor="let des of invoiceForm.value.lanyard.desc">{{des.des}}</li>
+                    </ul>
+                  </td>
+                  <td></td>
+                  <td>{{invoiceForm.value.lanyard_q}}</td>
+                  <td>{{invoiceForm.value.lanyard.price}}</td>
+                  <td colspan="2">{{invoiceForm.value.lanyard_q * invoiceForm.value.lanyard.price}}</td>
+                </tr>
+                <tr *ngIf="discount_edit">
+                  <th colspan="5">Discount Price</th>
+                  <th colspan="2">{{discount}}</th>
+                </tr>
+                <tr>
+                  <th colspan="5">Total before tax</th>
+                  <th colspan="2">{{priceBeforeTax}}</th>
+                </tr>
+                <tr *ngIf="location_edit">
+                  <th>S.No.</th>
+                  <th colspan="2" class="text-center">CGST</th>
+                  <th colspan="2" class="text-center">SGST</th>
+                  <th colspan="2"></th>
+                </tr>
+                <tr *ngIf="location_edit">
+                  <td></td>
+                  <td>Rate</td>
+                  <td>Amount</td>
+                  <td>Rate</td>
+                  <td>Amount</td>
+                  <td colspan="2"></td>
+                </tr>
+                <tr *ngIf="location_edit">
+                  <td>1</td>
+                  <td>9%</td>
+                  <td>{{card_gst}}</td>
+                  <td>9%</td>
+                  <td>{{card_gst}}</td>
+                  <td colspan="2"></td>
+                </tr>
+                <tr *ngIf="location_edit">
+                  <td>2</td>
+                  <td>9%</td>
+                  <td>{{holder_gst}}</td>
+                  <td>9%</td>
+                  <td>{{holder_gst}}</td>
+                  <td>Add: GST</td>
+                  <td>{{(card_gst + holder_gst + lanyard_gst).toFixed(2)}}</td>
+                </tr>
+                <tr *ngIf="location_edit">
+                  <td>3</td>
+                  <td>9%</td>
+                  <td>{{lanyard_gst}}</td>
+                  <td>9%</td>
+                  <td>{{lanyard_gst}}</td>
+                  <td>Add: SCGST</td>
+                  <td>{{(card_gst + holder_gst + lanyard_gst).toFixed(2)}}</td>
+                </tr>
+                <tr *ngIf="!location_edit">
+                  <th>S.No.</th>
+                  <th class="text-center">IGST</th>
+                  <th colspan="5"></th>
+                </tr>
+                <tr *ngIf="!location_edit">
+                  <td></td>
+                  <td>Rate</td>
+                  <td colspan="5">Amount</td>
+                </tr>
+                <tr *ngIf="!location_edit">
+                  <td>1</td>
+                  <td>18%</td>
+                  <td colspan="5">{{card_igst}}</td>
+                </tr>
+                <tr *ngIf="!location_edit">
+                  <td>2</td>
+                  <td>18%</td>
+                  <td colspan="5">{{holder_igst}}</td>
+                </tr>
+                <tr *ngIf="!location_edit">
+                  <td>3</td>
+                  <td>18%</td>
+                  <td colspan="3">{{lanyard_igst}}</td>
+                  <td>Add: IGST</td>
+                  <td>{{(card_igst + holder_igst + lanyard_igst).toFixed(2)}}</td>
+                </tr>
+                <tr>
+                  <th colspan="6">Total Tax</th>
+                  <th>{{total_tax.toFixed(2)}}</th>
+                </tr>
+                <tr>
+                  <th colspan="6">Gross Total</th>
+                  <th>{{gross_total.toFixed()}}</th>
+                </tr>
+                </tbody>
+              </table>
+              <p>&nbsp;</p>
+      </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
-<router-outlet></router-outlet>
