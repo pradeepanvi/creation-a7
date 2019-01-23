@@ -9,15 +9,27 @@ import {MatRadioModule} from '@angular/material/radio';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InvoiceComponent } from './invoice/invoice.component';
+import { AddInvoiceComponent } from './invoice/add-invoice/add-invoice.component';
+import { ListInvoiceComponent } from './invoice/list-invoice/list-invoice.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DetailInvoiceComponent } from './invoice/detail-invoice/detail-invoice.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    InvoiceComponent,
+    AddInvoiceComponent,
+    ListInvoiceComponent,
+    DetailInvoiceComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatSelectModule,
     MatButtonModule,

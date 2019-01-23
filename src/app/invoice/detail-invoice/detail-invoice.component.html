@@ -1,0 +1,178 @@
+<div class="row">
+<div class="col-md-12">
+  <h3>Tax Invoice</h3>
+  <table class="table">
+      <thead>
+        <tr>
+          <td colspan="4">
+            <h4>Creation Graphics</h4>
+            CN-61/117, BG-6, Sonia Camp<br>
+            T-Hut, Paschim Vihar,<br>
+            New Delhi 110063<br>
+            GSTIN No.: 07BKGPK7828D1Z3
+          </td>
+          <td colspan="3">
+            <h4>&nbsp;</h4>
+            Phone No: +91-999-0571-016,<br>
+            9910537889<br>
+            E-Mail: creationgraphicss@gmail.com<br>
+            info@creationgraphicss.com<br>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">Comapny: {{invoice_list.company}}</td>
+          <td colspan="3">Invoice No.	{{invoice_list.invoice_no}}</td>
+        </tr>
+        <tr>
+          <td colspan="4" *ngIf="!gst_no_edit"></td>
+          <td colspan="4" *ngIf="gst_no_edit">GST No: {{invoice_list.gst_no}}</td>
+          <td colspan="3">Date.: {{invoice_list.date}}</td>
+        </tr>
+        <tr>
+          <th>S.No.</th>
+          <th>Description</th>
+          <th>HSN</th>
+          <th>Quantity</th>
+          <th>Rate</th>
+          <th colspan="2" class="text-right">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>{{invoice_list.card.viewValue}} <br> 
+            <ul class="small">
+              <li *ngFor="let des of invoice_list.card.desc">{{des.des}}</li>
+            </ul>
+          </td>
+          <td></td>
+          <td>{{invoice_list.card_q}}</td>
+          <td>{{invoice_list.card.price}}</td>
+          <td colspan="2" class="text-right">{{invoice_list.card_q * invoice_list.card.price}}</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>{{invoice_list.holder.viewValue}} <br> 
+            <ul class="small">
+              <li *ngFor="let des of invoice_list.holder.desc">{{des.des}}</li>
+            </ul>
+          </td>
+          <td></td>
+          <td>{{invoice_list.holder_q}}</td>
+          <td>{{invoice_list.holder.price}}</td>
+          <td colspan="2" class="text-right">{{invoice_list.holder_q * invoice_list.holder.price}}</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>{{invoice_list.lanyard.viewValue}} <br> 
+            <ul class="small">
+              <li *ngFor="let des of invoice_list.lanyard.desc">{{des.des}}</li>
+            </ul>
+          </td>
+          <td></td>
+          <td>{{invoice_list.lanyard_q}}</td>
+          <td>{{invoice_list.lanyard.price}}</td>
+          <td colspan="2" class="text-right">{{invoice_list.lanyard_q * invoice_list.lanyard.price}}</td>
+        </tr>
+        <tr *ngIf="discount_edit">
+          <th colspan="5">Discount Price</th>
+          <th colspan="2" class="text-right">{{discount}}</th>
+        </tr>
+        <tr>
+          <th colspan="5">Total before tax</th>
+          <th colspan="2" class="text-right">{{priceBeforeTax}}</th>
+        </tr>
+        <tr *ngIf="location_edit">
+          <th>S.No.</th>
+          <th colspan="2" class="text-center">CGST</th>
+          <th colspan="2" class="text-center">SGST</th>
+          <th colspan="2"></th>
+        </tr>
+        <tr *ngIf="location_edit">
+          <td></td>
+          <td>Rate</td>
+          <td>Amount</td>
+          <td>Rate</td>
+          <td>Amount</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr *ngIf="location_edit">
+          <td>1</td>
+          <td>9%</td>
+          <td>{{card_gst}}</td>
+          <td>9%</td>
+          <td>{{card_gst}}</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr *ngIf="location_edit">
+          <td>2</td>
+          <td>9%</td>
+          <td>{{holder_gst}}</td>
+          <td>9%</td>
+          <td>{{holder_gst}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="location_edit">
+          <td>3</td>
+          <td>9%</td>
+          <td>{{lanyard_gst}}</td>
+          <td>9%</td>
+          <td>{{lanyard_gst}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="!location_edit">
+          <th>S.No.</th>
+          <th class="text-center">IGST</th>
+          <th colspan="5"></th>
+        </tr>
+        <tr *ngIf="!location_edit">
+          <td></td>
+          <td>Rate</td>
+          <td colspan="5">Amount</td>
+        </tr>
+        <tr *ngIf="!location_edit">
+          <td>1</td>
+          <td>18%</td>
+          <td colspan="5">{{card_igst}}</td>
+        </tr>
+        <tr *ngIf="!location_edit">
+          <td>2</td>
+          <td>18%</td>
+          <td colspan="5">{{holder_igst}}</td>
+        </tr>
+        <tr *ngIf="!location_edit">
+          <td>3</td>
+          <td>18%</td>
+          <td colspan="3">{{lanyard_igst}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="location_edit">
+          <th colspan="2">Total Tax</th>
+          <th>{{(card_gst + holder_gst + lanyard_gst).toFixed(2)}}</th>
+          <th></th>
+          <th>{{(card_gst + holder_gst + lanyard_gst).toFixed(2)}}</th>
+          <th></th>
+          <th class="text-right">{{total_tax.toFixed(2)}}</th>
+        </tr>
+        <tr *ngIf="!location_edit">
+          <th colspan="2">Total Tax</th>
+          <th>{{(card_igst + holder_igst + lanyard_igst).toFixed(2)}}</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th class="text-right">{{total_tax.toFixed(2)}}</th>
+        </tr>
+        <tr>
+          <th colspan="6">Gross Total</th>
+          <th class="text-right">{{gross_total.toFixed()}}</th>
+        </tr>
+        </tbody>
+      </table>
+      <p>&nbsp;</p>
+      <button class="btn btn-warning" (click)="back()">Back</button>
+      <p>&nbsp;</p>
+</div>
+</div>

@@ -1,0 +1,14 @@
+  <div class="col-md-6 offset-md-3 print_hide">
+      <h3>Login</h3>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="w-100">
+            <input matInput placeholder="User Name" formControlName="user">
+        </mat-form-field>
+        <mat-form-field class="w-100">
+            <input type="password" matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+        <div class="btn-group">
+          <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+    </div>
