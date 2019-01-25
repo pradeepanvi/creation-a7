@@ -39,7 +39,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>1</td>
+          <td>{{invoice_list.card_s}}</td>
           <td>{{invoice_list.card.viewValue}} <br> 
             <ul class="small">
               <li *ngFor="let des of invoice_list.card.desc">{{des.des}}</li>
@@ -51,7 +51,7 @@
           <td colspan="2" class="text-right">{{invoice_list.card_q * invoice_list.card.price}}</td>
         </tr>
         <tr>
-          <td>2</td>
+          <td>{{invoice_list.holder_s}}</td>
           <td>{{invoice_list.holder.viewValue}} <br> 
             <ul class="small">
               <li *ngFor="let des of invoice_list.holder.desc">{{des.des}}</li>
@@ -63,7 +63,7 @@
           <td colspan="2" class="text-right">{{invoice_list.holder_q * invoice_list.holder.price}}</td>
         </tr>
         <tr>
-          <td>3</td>
+          <td>{{invoice_list.lanyard_s}}</td>
           <td>{{invoice_list.lanyard.viewValue}} <br> 
             <ul class="small">
               <li *ngFor="let des of invoice_list.lanyard.desc">{{des.des}}</li>
@@ -97,7 +97,7 @@
           <td colspan="2"></td>
         </tr>
         <tr *ngIf="location_edit">
-          <td>1</td>
+          <td>{{invoice_list.card_s}}</td>
           <td>9%</td>
           <td>{{card_gst}}</td>
           <td>9%</td>
@@ -105,7 +105,7 @@
           <td colspan="2"></td>
         </tr>
         <tr *ngIf="location_edit">
-          <td>2</td>
+          <td>{{invoice_list.holder_s}}</td>
           <td>9%</td>
           <td>{{holder_gst}}</td>
           <td>9%</td>
@@ -114,7 +114,7 @@
           <td></td>
         </tr>
         <tr *ngIf="location_edit">
-          <td>3</td>
+          <td>{{invoice_list.lanyard_s}}</td>
           <td>9%</td>
           <td>{{lanyard_gst}}</td>
           <td>9%</td>
@@ -133,17 +133,17 @@
           <td colspan="5">Amount</td>
         </tr>
         <tr *ngIf="!location_edit">
-          <td>1</td>
+          <td>{{invoice_list.card_s}}</td>
           <td>18%</td>
           <td colspan="5">{{card_igst}}</td>
         </tr>
         <tr *ngIf="!location_edit">
-          <td>2</td>
+          <td>{{invoice_list.holder_s}}</td>
           <td>18%</td>
           <td colspan="5">{{holder_igst}}</td>
         </tr>
         <tr *ngIf="!location_edit">
-          <td>3</td>
+          <td>{{invoice_list.lanyard_s}}</td>
           <td>18%</td>
           <td colspan="3">{{lanyard_igst}}</td>
           <td></td>

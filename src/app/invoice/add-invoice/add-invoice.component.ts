@@ -56,9 +56,9 @@ export class AddInvoiceComponent implements OnInit {
   cards:any;
   
   locations:any;
-  
+ 
   ngOnInit(){
-    this.http.get('../../../assets/code.json').subscribe(
+    this.http.get('http://identitycards.co.in/invoice/assets/code.json').subscribe(
       (res) => {
         this.admin = res;
       }
@@ -68,7 +68,7 @@ export class AddInvoiceComponent implements OnInit {
 
   ngDoCheck(){
     this.company_status = this.invoiceForm.value.comapny_register;
-    console.log(this.company_status);
+    //console.log(this.company_status);
     if(this.company_status == 'register'){
       this.gst_no_edit = true;
     } else {
@@ -134,7 +134,7 @@ export class AddInvoiceComponent implements OnInit {
     }
 
     this.total_tax = (this.card_gst + this.holder_gst + this.lanyard_gst) + (this.card_gst + this.holder_gst + this.lanyard_gst) + (this.card_igst + this.holder_igst + this.lanyard_igst);
-    console.log(this.card_gst + this.holder_gst + this.lanyard_gst);
+    //console.log(this.card_gst + this.holder_gst + this.lanyard_gst);
 
     this.priceBeforeTax = 0;
 
@@ -150,11 +150,12 @@ export class AddInvoiceComponent implements OnInit {
     this.priceBeforeTax - this.discount;
 
     this.gross_total = this.total_tax + this.priceBeforeTax;
+
   }
 
   onSubmit(){
-    console.log(this.invoiceForm.value);
-    //window.print();
+    //console.log(JSON.stringify(this.invoiceForm.value));
+    window.print();
   }
   onCancel(){
     this.router.navigate(['../'], {relativeTo:this.route});
@@ -170,6 +171,9 @@ export class AddInvoiceComponent implements OnInit {
       'card' : new FormControl('', Validators.required),
       'holder': new FormControl('', Validators.required),
       'lanyard': new FormControl('', Validators.required),
+      'card_s': new FormControl('1'),
+      'holder_s': new FormControl('2'),
+      'lanyard_s': new FormControl('3'),
       'card_q': new FormControl('1'),
       'holder_q': new FormControl('1'),
       'lanyard_q': new FormControl('1'),

@@ -18,15 +18,21 @@
           <mat-form-field [ngClass]="gst_no_edit ? 'w-50' : 'w-100'">
               <input matInput placeholder="Date:" formControlName="date">
           </mat-form-field>
-         <mat-form-field>
+          <mat-form-field class="w-10">
+            <input matInput placeholder="S.N" formControlName="card_s">
+          </mat-form-field>
+          <mat-form-field>
             <mat-select placeholder="Select Cards" formControlName="card">
               <mat-option *ngFor="let card of admin.cards" [value]="card">
                 {{card.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field class="w-30">
+          <mat-form-field class="w-20">
               <input matInput placeholder="Quantity" formControlName="card_q">
+          </mat-form-field>
+          <mat-form-field class="w-10">
+            <input matInput placeholder="S.N" formControlName="holder_s">
           </mat-form-field>
         <mat-form-field>
             <mat-select placeholder="Select Holders" formControlName="holder">
@@ -35,8 +41,11 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field class="w-30">
+          <mat-form-field class="w-20">
               <input matInput placeholder="Quantity" formControlName="holder_q">
+          </mat-form-field>
+          <mat-form-field class="w-10">
+            <input matInput placeholder="S.N" formControlName="lanyard_s">
           </mat-form-field>
           <mat-form-field>
             <mat-select placeholder="Select Lanyards" formControlName="lanyard">
@@ -45,7 +54,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field class="w-30">
+          <mat-form-field class="w-20">
               <input matInput placeholder="Quantity" formControlName="lanyard_q">
           </mat-form-field>
           <mat-form-field class="w-100">
@@ -93,8 +102,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngIf="invoiceForm.value.card.viewValue != null">
-                  <td>{{i}}</td>
+                <tr *ngIf="invoiceForm.value.card.viewValue != null" >
+                  <td>{{invoiceForm.value.card_s}}</td>
                   <td>{{invoiceForm.value.card.viewValue}} <br> 
                     <ul class="small">
                       <li *ngFor="let des of invoiceForm.value.card.desc">{{des.des}}</li>
@@ -106,7 +115,7 @@
                   <td colspan="2" class="text-right">{{invoiceForm.value.card_q * invoiceForm.value.card.price}}</td>
                 </tr>
                 <tr *ngIf="invoiceForm.value.holder.viewValue != null">
-                  <td>{{i}}</td>
+                  <td>{{invoiceForm.value.holder_s}}</td>
                   <td>{{invoiceForm.value.holder.viewValue}} <br> 
                     <ul class="small">
                       <li *ngFor="let des of invoiceForm.value.holder.desc">{{des.des}}</li>
@@ -118,7 +127,7 @@
                   <td colspan="2" class="text-right">{{invoiceForm.value.holder_q * invoiceForm.value.holder.price}}</td>
                 </tr>
                 <tr *ngIf="invoiceForm.value.lanyard.viewValue != null">
-                  <td>{{i}}</td>
+                  <td>{{invoiceForm.value.lanyard_s}}</td>
                   <td>{{invoiceForm.value.lanyard.viewValue}} <br> 
                     <ul class="small">
                       <li *ngFor="let des of invoiceForm.value.lanyard.desc">{{des.des}}</li>
@@ -152,7 +161,7 @@
                   <td colspan="2"></td>
                 </tr>
                 <tr *ngIf="location_edit && invoiceForm.value.card.viewValue != null">
-                  <td>1</td>
+                  <td>{{invoiceForm.value.card_s}}</td>
                   <td>9%</td>
                   <td>{{card_gst}}</td>
                   <td>9%</td>
@@ -160,7 +169,7 @@
                   <td colspan="2"></td>
                 </tr>
                 <tr *ngIf="location_edit && invoiceForm.value.holder.viewValue != null">
-                  <td>2</td>
+                  <td>{{invoiceForm.value.holder_s}}</td>
                   <td>9%</td>
                   <td>{{holder_gst}}</td>
                   <td>9%</td>
@@ -169,7 +178,7 @@
                   <td></td>
                 </tr>
                 <tr *ngIf="location_edit && invoiceForm.value.lanyard.viewValue != null">
-                  <td>3</td>
+                  <td>{{invoiceForm.value.lanyard_s}}</td>
                   <td>9%</td>
                   <td>{{lanyard_gst}}</td>
                   <td>9%</td>
@@ -188,17 +197,17 @@
                   <td colspan="5">Amount</td>
                 </tr>
                 <tr *ngIf="!location_edit && invoiceForm.value.card.viewValue != null">
-                  <td>1</td>
+                  <td>{{invoiceForm.value.card_s}}</td>
                   <td>18%</td>
                   <td colspan="5">{{card_igst}}</td>
                 </tr>
                 <tr *ngIf="!location_edit && invoiceForm.value.holder.viewValue != null">
-                  <td>2</td>
+                  <td>{{invoiceForm.value.holder_s}}</td>
                   <td>18%</td>
                   <td colspan="5">{{holder_igst}}</td>
                 </tr>
                 <tr *ngIf="!location_edit && invoiceForm.value.lanyard.viewValue != null">
-                  <td>3</td>
+                  <td>{{invoiceForm.value.lanyard_s}}</td>
                   <td>18%</td>
                   <td colspan="3">{{lanyard_igst}}</td>
                   <td></td>

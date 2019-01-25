@@ -46,13 +46,13 @@ export class DetailInvoiceComponent implements OnInit {
         this.id = params['id'];
       }
     )
-    this.http.get('../../../assets/code.json').subscribe(
+    this.http.get('http://identitycards.co.in/invoice/assets/code.json').subscribe(
       (res:Invoice) => {
         this.invoice_list = res.invoice_list[this.id];
-        console.log(this.invoice_list);
+        //console.log(this.invoice_list);
 
         this.company_status = this.invoice_list.comapny_register;
-        console.log(this.company_status);
+        //console.log(this.company_status);
         if(this.company_status == 'register'){
           this.gst_no_edit = true;
         } else {

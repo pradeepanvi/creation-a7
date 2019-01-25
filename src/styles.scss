@@ -20,6 +20,12 @@ form{
     margin-bottom: 50px;
     .mat-form-field{
         width: 70%;
+        &.w-10{
+            width: 10%;
+        }
+        &.w-20{
+            width: 20%;
+        }
         &.w-30{
             width: 30%;
         }

@@ -15,10 +15,10 @@ constructor(private http:HttpClient,
             private router:Router) { }
 
 ngOnInit() {
-  this.http.get('../../../assets/code.json').subscribe(
+  this.http.get('http://identitycards.co.in/invoice/assets/code.json').subscribe(
     (res) => {
       this.invoice_list = res;
-      console.log(this.invoice_list);
+      //console.log(this.invoice_list);
     }
   )
 }

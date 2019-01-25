@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     //this.loginForm.value;
-    console.log(this.loginForm.value);
+    //console.log(this.loginForm.value);
     this.authService.login(this.loginForm.value.user, this.loginForm.value.password);
     this.router.navigate(['invoice'], {relativeTo:this.route});
   }
