@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { Product } from '../../app.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -77,25 +77,50 @@ export class AddInvoiceComponent implements OnInit {
 
     this.location = this.invoiceForm.value.location.state;
     if(this.location == 'Delhi'){
-      this.card_gst = ((this.invoiceForm.value.card_q * this.invoiceForm.value.card.price) * 18 / 100) / 2;
+      if(this.invoiceForm.value.card != ''){
+        this.card_gst = ((this.invoiceForm.value.card_q * this.invoiceForm.value.card.price) * 18 / 100) / 2;  
+      } else {
+        this.card_gst = 0;
+      }
       this.card_igst = 0;
   
-      this.holder_gst = ((this.invoiceForm.value.holder_q * this.invoiceForm.value.holder.price) * 18 / 100) / 2;
+      if(this.invoiceForm.value.holder != ''){
+        this.holder_gst = ((this.invoiceForm.value.holder_q * this.invoiceForm.value.holder.price) * 18 / 100) / 2;
+      } else {
+        this.holder_gst = 0;
+      }
       this.holder_igst = 0;
   
-      this.lanyard_gst = ((this.invoiceForm.value.lanyard_q * this.invoiceForm.value.lanyard.price) * 18 / 100) / 2;
+      if(this.invoiceForm.value.lanyard != ''){
+        this.lanyard_gst = ((this.invoiceForm.value.lanyard_q * this.invoiceForm.value.lanyard.price) * 18 / 100) / 2;
+      } else {
+        this.lanyard_gst = 0;
+      }
       this.lanyard_igst = 0;
 
       this.location_edit = true;
     } else {
       this.card_gst = 0;
-      this.card_igst = (this.invoiceForm.value.card_q * this.invoiceForm.value.card.price) * 18 / 100;
+      if(this.invoiceForm.value.card != ''){
+        this.card_igst = (this.invoiceForm.value.card_q * this.invoiceForm.value.card.price) * 18 / 100;
+      } else {
+        this.card_igst = 0;
+      }
   
       this.holder_gst = 0;
-      this.holder_igst = (this.invoiceForm.value.holder_q * this.invoiceForm.value.holder.price) * 18 / 100;
+      if(this.invoiceForm.value.holder != ''){
+        this.holder_igst = (this.invoiceForm.value.holder_q * this.invoiceForm.value.holder.price) * 18 / 100;
+      } else {
+        this.holder_igst = 0;
+      }
+      
   
       this.lanyard_gst = 0;
-      this.lanyard_igst = (this.invoiceForm.value.lanyard_q * this.invoiceForm.value.lanyard.price) * 18 / 100;
+      if(this.invoiceForm.value.lanyard != ''){
+        this.lanyard_igst = (this.invoiceForm.value.lanyard_q * this.invoiceForm.value.lanyard.price) * 18 / 100;
+      } else {
+        this.lanyard_igst = 0;
+      }
 
       this.location_edit = false;
     }
@@ -109,14 +134,26 @@ export class AddInvoiceComponent implements OnInit {
     }
 
     this.total_tax = (this.card_gst + this.holder_gst + this.lanyard_gst) + (this.card_gst + this.holder_gst + this.lanyard_gst) + (this.card_igst + this.holder_igst + this.lanyard_igst);
+    console.log(this.card_gst + this.holder_gst + this.lanyard_gst);
 
-    this.priceBeforeTax = (this.invoiceForm.value.card_q * this.invoiceForm.value.card.price) + (this.invoiceForm.value.holder_q * this.invoiceForm.value.holder.price) + (this.invoiceForm.value.lanyard_q * this.invoiceForm.value.lanyard.price) - this.discount;
+    this.priceBeforeTax = 0;
+
+    if(this.invoiceForm.value.card != ''){
+      this.priceBeforeTax += (this.invoiceForm.value.card_q * this.invoiceForm.value.card.price);
+    } 
+    if(this.invoiceForm.value.holder != '') {
+      this.priceBeforeTax += (this.invoiceForm.value.holder_q * this.invoiceForm.value.holder.price)
+    }
+    if(this.invoiceForm.value.lanyard != ''){
+      this.priceBeforeTax += (this.invoiceForm.value.lanyard_q * this.invoiceForm.value.lanyard.price);      
+    }
+    this.priceBeforeTax - this.discount;
 
     this.gross_total = this.total_tax + this.priceBeforeTax;
   }
 
   onSubmit(){
-    console.log(JSON.stringify(this.invoiceForm.value));
+    console.log(this.invoiceForm.value);
     //window.print();
   }
   onCancel(){
@@ -131,11 +168,11 @@ export class AddInvoiceComponent implements OnInit {
       'gst_no' : new FormControl(),
       'date' : new FormControl(),
       'card' : new FormControl('', Validators.required),
+      'holder': new FormControl('', Validators.required),
+      'lanyard': new FormControl('', Validators.required),
       'card_q': new FormControl('1'),
       'holder_q': new FormControl('1'),
       'lanyard_q': new FormControl('1'),
-      'holder': new FormControl('', Validators.required),
-      'lanyard': new FormControl('', Validators.required),
       'location': new FormControl('Delhi', Validators.required),
       'discount': new FormControl('0'),
     });

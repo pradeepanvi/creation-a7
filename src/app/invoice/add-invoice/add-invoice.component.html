@@ -59,7 +59,7 @@
               <input matInput placeholder="Discount" formControlName="discount">
           </mat-form-field>
           <div class="btn-group">
-            <button [disabled]="!invoiceForm.valid" type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
             <button class="btn btn-warning" (click)="onCancel()">Cancel</button>
           </div>
           </form>
@@ -93,8 +93,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
+                <tr *ngIf="invoiceForm.value.card.viewValue != null">
+                  <td>{{i}}</td>
                   <td>{{invoiceForm.value.card.viewValue}} <br> 
                     <ul class="small">
                       <li *ngFor="let des of invoiceForm.value.card.desc">{{des.des}}</li>
@@ -105,8 +105,8 @@
                   <td>{{invoiceForm.value.card.price}}</td>
                   <td colspan="2" class="text-right">{{invoiceForm.value.card_q * invoiceForm.value.card.price}}</td>
                 </tr>
-                <tr>
-                  <td>2</td>
+                <tr *ngIf="invoiceForm.value.holder.viewValue != null">
+                  <td>{{i}}</td>
                   <td>{{invoiceForm.value.holder.viewValue}} <br> 
                     <ul class="small">
                       <li *ngFor="let des of invoiceForm.value.holder.desc">{{des.des}}</li>
@@ -117,8 +117,8 @@
                   <td>{{invoiceForm.value.holder.price}}</td>
                   <td colspan="2" class="text-right">{{invoiceForm.value.holder_q * invoiceForm.value.holder.price}}</td>
                 </tr>
-                <tr>
-                  <td>3</td>
+                <tr *ngIf="invoiceForm.value.lanyard.viewValue != null">
+                  <td>{{i}}</td>
                   <td>{{invoiceForm.value.lanyard.viewValue}} <br> 
                     <ul class="small">
                       <li *ngFor="let des of invoiceForm.value.lanyard.desc">{{des.des}}</li>
@@ -151,7 +151,7 @@
                   <td>Amount</td>
                   <td colspan="2"></td>
                 </tr>
-                <tr *ngIf="location_edit">
+                <tr *ngIf="location_edit && invoiceForm.value.card.viewValue != null">
                   <td>1</td>
                   <td>9%</td>
                   <td>{{card_gst}}</td>
@@ -159,7 +159,7 @@
                   <td>{{card_gst}}</td>
                   <td colspan="2"></td>
                 </tr>
-                <tr *ngIf="location_edit">
+                <tr *ngIf="location_edit && invoiceForm.value.holder.viewValue != null">
                   <td>2</td>
                   <td>9%</td>
                   <td>{{holder_gst}}</td>
@@ -168,7 +168,7 @@
                   <td></td>
                   <td></td>
                 </tr>
-                <tr *ngIf="location_edit">
+                <tr *ngIf="location_edit && invoiceForm.value.lanyard.viewValue != null">
                   <td>3</td>
                   <td>9%</td>
                   <td>{{lanyard_gst}}</td>
@@ -187,17 +187,17 @@
                   <td>Rate</td>
                   <td colspan="5">Amount</td>
                 </tr>
-                <tr *ngIf="!location_edit">
+                <tr *ngIf="!location_edit && invoiceForm.value.card.viewValue != null">
                   <td>1</td>
                   <td>18%</td>
                   <td colspan="5">{{card_igst}}</td>
                 </tr>
-                <tr *ngIf="!location_edit">
+                <tr *ngIf="!location_edit && invoiceForm.value.holder.viewValue != null">
                   <td>2</td>
                   <td>18%</td>
                   <td colspan="5">{{holder_igst}}</td>
                 </tr>
-                <tr *ngIf="!location_edit">
+                <tr *ngIf="!location_edit && invoiceForm.value.lanyard.viewValue != null">
                   <td>3</td>
                   <td>18%</td>
                   <td colspan="3">{{lanyard_igst}}</td>
