@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../../shared/auth.service';
 
 @Component({
   selector: 'app-list-invoice',
@@ -12,10 +13,11 @@ invoice_list:any;
 
 constructor(private http:HttpClient,
             private route:ActivatedRoute,
-            private router:Router) { }
+            private router:Router,
+            private authService:AuthService) { }
 
 ngOnInit() {
-  this.http.get('http://identitycards.co.in/invoice/assets/code.json').subscribe(
+  this.http.get(this.authService.code).subscribe(
     (res) => {
       this.invoice_list = res;
       //console.log(this.invoice_list);

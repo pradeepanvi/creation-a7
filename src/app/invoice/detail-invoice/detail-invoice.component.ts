@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { AuthService } from '../../../shared/auth.service';
 
 export interface Invoice{
   invoice_list: any;
@@ -12,6 +13,7 @@ export interface Invoice{
   styleUrls: ['./detail-invoice.component.scss']
 })
 export class DetailInvoiceComponent implements OnInit {
+  admin:any;
   invoice_list:any;
   id:any;
   priceBeforeTax:any;
@@ -30,15 +32,20 @@ export class DetailInvoiceComponent implements OnInit {
   discount_edit = false;
   discount = 0;
 
-  location_edit = true;
   location:any;
 
   gst_no_edit = true;
   company_status:any;
+  
+  location_edit = false;
+  location_edit2 = false;
+  location_edit_innter = false;
+  location_edit_innter2 = false;  
 
   constructor(private http:HttpClient,
               private route:ActivatedRoute,
-              private router:Router) { }
+              private router:Router,
+              private authService:AuthService) { }
   
   ngOnInit() {
     this.route.params.subscribe(
@@ -46,7 +53,13 @@ export class DetailInvoiceComponent implements OnInit {
         this.id = params['id'];
       }
     )
-    this.http.get('http://identitycards.co.in/invoice/assets/code.json').subscribe(
+    this.http.get(this.authService.code).subscribe(
+      (res) => {
+        this.admin = res;
+        //console.log(this.admin);
+      }
+    )
+    this.http.get(this.authService.code).subscribe(
       (res:Invoice) => {
         this.invoice_list = res.invoice_list[this.id];
         //console.log(this.invoice_list);
@@ -59,8 +72,8 @@ export class DetailInvoiceComponent implements OnInit {
           this.gst_no_edit = false;
         }
     
-        this.location = this.invoice_list.location.state;
-        if(this.location == 'Delhi'){
+        this.location = this.invoice_list.location.value;
+        if(this.location == 'delhi' || this.location == 'yes'){
           this.card_gst = ((this.invoice_list.card_q * this.invoice_list.card.price) * 18 / 100) / 2;
           this.card_igst = 0;
       
@@ -70,8 +83,19 @@ export class DetailInvoiceComponent implements OnInit {
           this.lanyard_gst = ((this.invoice_list.lanyard_q * this.invoice_list.lanyard.price) * 18 / 100) / 2;
           this.lanyard_igst = 0;
     
-          this.location_edit = true;
-        } else {
+          if(this.location == 'delhi'){
+            this.location_edit = true;
+            this.location_edit2 = false;
+            this.location_edit_innter = false;
+            this.location_edit_innter2 = false;
+          }
+          if(this.location == 'yes'){
+            this.location_edit = false;
+            this.location_edit2 = false;
+            this.location_edit_innter = true;
+            this.location_edit_innter2 = false;
+          }
+        } else if(this.location == 'other' || this.location == 'no') {
           this.card_gst = 0;
           this.card_igst = (this.invoice_list.card_q * this.invoice_list.card.price) * 18 / 100;
       
@@ -81,7 +105,18 @@ export class DetailInvoiceComponent implements OnInit {
           this.lanyard_gst = 0;
           this.lanyard_igst = (this.invoice_list.lanyard_q * this.invoice_list.lanyard.price) * 18 / 100;
     
-          this.location_edit = false;
+          if(this.location == 'other'){
+            this.location_edit = false;
+            this.location_edit2 = true;
+            this.location_edit_innter = false;
+            this.location_edit_innter2 = false;
+          }
+          if(this.location == 'no'){
+            this.location_edit = false;
+            this.location_edit2 = false;
+            this.location_edit_innter = false;
+            this.location_edit_innter2 = true;
+          }
         }
     
         this.discount = this.invoice_list.discount;
@@ -99,6 +134,7 @@ export class DetailInvoiceComponent implements OnInit {
         this.gross_total = this.total_tax + this.priceBeforeTax;    
     
       }
+
     )
   }
 

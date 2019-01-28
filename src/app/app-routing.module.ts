@@ -10,6 +10,7 @@ import { AuthGuard } from '../shared/auth-guard.service';
 const routes: Routes = [
   { path:'', component:LoginComponent},
   { path:'invoice', canActivate:[AuthGuard], component:InvoiceComponent, children:[
+  //{ path:'invoice', component:InvoiceComponent, children:[    
     {path:'', component:ListInvoiceComponent},
     {path:'add-invoice', component:AddInvoiceComponent},
     {path:'detail-invoice/:id', component:DetailInvoiceComponent}

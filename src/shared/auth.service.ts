@@ -6,13 +6,16 @@ import { Injectable, DoCheck } from '@angular/core';
 })
 
 export class AuthService implements DoCheck {
+    //code = "http://localhost:4200/assets/code.json";
+    code = "http://identitycards.co.in/invoice/assets/code.json";
     loggedIn = false;
     user_detail:any;
 
-    constructor(private http:HttpClient){}
+    constructor(private http:HttpClient){
+        
+    }
 
     ngDoCheck(){
-
     }
 
     isAuthenticated(){
@@ -27,12 +30,12 @@ export class AuthService implements DoCheck {
     }
 
     login(user, pass) {
-        this.http.get('../assets/code.json').subscribe(
+        this.http.get(this.code).subscribe(
             (res) => {
                 this.user_detail = res;
             }
         )
-        console.log(this.user_detail);
+        //console.log(this.user_detail);
         if(this.user_detail.user_detail.user == user && this.user_detail.user_detail.password == pass){
             this.loggedIn = true;
         }

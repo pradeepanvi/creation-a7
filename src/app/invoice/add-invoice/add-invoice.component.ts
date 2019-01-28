@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { Product } from '../../app.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../../shared/auth.service';
 
 export interface Product {
   price: number;
@@ -22,7 +23,8 @@ export interface Location {
 export class AddInvoiceComponent implements OnInit {
   constructor(private http:HttpClient,
               private route:ActivatedRoute,
-              private router:Router) { }
+              private router:Router,
+              private authService:AuthService) { }
       
   title = 'creation-a7';
   invoiceForm: FormGroup;
@@ -42,7 +44,6 @@ export class AddInvoiceComponent implements OnInit {
   discount_edit = false;
   discount = 0;
 
-  location_edit = true;
   location:any;
 
   gst_no_edit = true;
@@ -56,11 +57,16 @@ export class AddInvoiceComponent implements OnInit {
   cards:any;
   
   locations:any;
+
+  location_edit = false;
+  location_edit2 = false;
+  location_edit_innter = false;
+  location_edit_innter2 = false;
  
   ngOnInit(){
-    this.http.get('http://identitycards.co.in/invoice/assets/code.json').subscribe(
+    this.http.get(this.authService.code).subscribe(
       (res) => {
-        this.admin = res;
+        return this.admin = res;
       }
     )
     this.initForm();
@@ -75,8 +81,8 @@ export class AddInvoiceComponent implements OnInit {
       this.gst_no_edit = false;
     }
 
-    this.location = this.invoiceForm.value.location.state;
-    if(this.location == 'Delhi'){
+    this.location = this.invoiceForm.value.location.value;
+    if(this.location == 'delhi' || this.location == 'yes'){
       if(this.invoiceForm.value.card != ''){
         this.card_gst = ((this.invoiceForm.value.card_q * this.invoiceForm.value.card.price) * 18 / 100) / 2;  
       } else {
@@ -97,9 +103,19 @@ export class AddInvoiceComponent implements OnInit {
         this.lanyard_gst = 0;
       }
       this.lanyard_igst = 0;
-
-      this.location_edit = true;
-    } else {
+      if(this.location == 'delhi'){
+        this.location_edit = true;
+        this.location_edit2 = false;
+        this.location_edit_innter = false;
+        this.location_edit_innter2 = false;
+      }
+      if(this.location == 'yes'){
+        this.location_edit = false;
+        this.location_edit2 = false;
+        this.location_edit_innter = true;
+        this.location_edit_innter2 = false;
+      }      
+    } else if(this.location == 'other' || this.location == 'no') {
       this.card_gst = 0;
       if(this.invoiceForm.value.card != ''){
         this.card_igst = (this.invoiceForm.value.card_q * this.invoiceForm.value.card.price) * 18 / 100;
@@ -122,7 +138,18 @@ export class AddInvoiceComponent implements OnInit {
         this.lanyard_igst = 0;
       }
 
-      this.location_edit = false;
+      if(this.location == 'other'){
+        this.location_edit = false;
+        this.location_edit2 = true;
+        this.location_edit_innter = false;
+        this.location_edit_innter2 = false;
+      }
+      if(this.location == 'no'){
+        this.location_edit = false;
+        this.location_edit2 = false;
+        this.location_edit_innter = false;
+        this.location_edit_innter2 = true;
+      }      
     }
 
     this.discount = this.invoiceForm.value.discount;
@@ -154,7 +181,7 @@ export class AddInvoiceComponent implements OnInit {
   }
 
   onSubmit(){
-    //console.log(JSON.stringify(this.invoiceForm.value));
+    console.log(JSON.stringify(this.invoiceForm.value));
     window.print();
   }
   onCancel(){
@@ -177,7 +204,7 @@ export class AddInvoiceComponent implements OnInit {
       'card_q': new FormControl('1'),
       'holder_q': new FormControl('1'),
       'lanyard_q': new FormControl('1'),
-      'location': new FormControl('Delhi', Validators.required),
+      'location': new FormControl('delhi', Validators.required),
       'discount': new FormControl('0'),
     });
   }
