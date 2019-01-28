@@ -174,7 +174,7 @@ export class AddInvoiceComponent implements OnInit {
     if(this.invoiceForm.value.lanyard != ''){
       this.priceBeforeTax += (this.invoiceForm.value.lanyard_q * this.invoiceForm.value.lanyard.price);      
     }
-    this.priceBeforeTax - this.discount;
+    this.priceBeforeTax -= this.discount;
 
     this.gross_total = this.total_tax + this.priceBeforeTax;
 

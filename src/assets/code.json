@@ -49,10 +49,10 @@
         ]}
     ],
     "locations": [
-        {"state":"Delhi", "value":"delhi"},
-        {"state":"Other", "value":"other"},
-        {"state":"Inter State: Yes", "value":"yes"},
-        {"state":"Inter State: No", "value":"no"}
+        {"state":"Intrastate", "value":"yes"},
+        {"state":"Interstate", "value":"no"},
+        {"state":"Intrastate - Separate Tax", "value":"delhi"},
+        {"state":"Interstate - Seperate Tax", "value":"other"}
     ],
     "invoice_list": [
         {"invoice_no":"creation","company":"asdf","comapny_register":"register","gst_no":"asdf","date":"asdf","card":{"price":40,"viewValue":"PCV Cards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"holder":{"price":5,"viewValue":"Normal White Transparent Holders","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"lanyard":{"price":30,"viewValue":"12mm Digital Lanyards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"card_s":"1","holder_s":"2","lanyard_s":"3","card_q":"1","holder_q":"1","lanyard_q":"1","location":{"state":"Delhi","value":"delhi"},"discount":"5"},
