@@ -1,0 +1,64 @@
+{
+    "user_detail":{"user":"creation", "password":"ckrishna"},
+    "company_detail":"<h4>Creation Graphics</h4> CN-61/117, BG-6, Sonia Camp<br> T-Hut, Paschim Vihar,<br> New Delhi 110063<br> GSTIN No.: 07BKGPK7828D1Z3",
+    "company_contact":"<h4>&nbsp;</h4> Phone No: +91-999-0571-016,<br> 9910537889<br> E-Mail: creationgraphicss@gmail.com<br> info@creationgraphicss.com<br>",
+    "lanyards": [
+        {"price": 30, "viewValue": "12mm Digital Lanyards", "desc": [
+            {"des": "Non Washable Printing"},
+            {"des": "Both side printing"},
+            {"des": "Dog Hook"}
+        ]},
+        {"price": 35, "viewValue": "16mm Digital Lanyards", "desc": [
+            {"des": "Non Washable Printing"},
+            {"des": "Both side printing"},
+            {"des": "Dog Hook"}
+        ]},
+        {"price": 40, "viewValue": "20mm Digital Lanyards", "desc": [
+            {"des": "Non Washable Printing"},
+            {"des": "Both side printing"},
+            {"des": "Dog Hook"}
+        ]},
+        {"price": 10, "viewValue": "Normal Offical Lanyards", "desc": [
+            {"des": "Non Washable Printing"},
+            {"des": "Both side printing"},
+            {"des": "Dog Hook"}
+        ]}
+    ],
+    "holders": [
+        {"price": 5, "viewValue": "Normal White Transparent Holders", "desc": [
+            {"des": "Non Washable Printing"},
+            {"des": "Both side printing"},
+            {"des": "Dog Hook"}
+        ]},
+        {"price": 10, "viewValue": "Double Sided Black Holders", "desc": [
+            {"des": "Non Washable Printing"},
+            {"des": "Both side printing"},
+            {"des": "Dog Hook"}
+        ]},
+        {"price": 10, "viewValue": "Double Sided White Transparent Holders", "desc": [
+            {"des": "Non Washable Printing"},
+            {"des": "Both side printing"},
+            {"des": "Dog Hook"}
+        ]}
+    ],    
+    "cards": [
+        {"price": 40, "viewValue": "PCV Cards", "desc": [
+            {"des": "Non Washable Printing"},
+            {"des": "Both side printing"},
+            {"des": "Dog Hook"}
+        ]}
+    ],
+    "locations": [
+        {"state":"Intrastate", "value":"yes"},
+        {"state":"Interstate", "value":"no"},
+        {"state":"Intrastate - Separate Tax", "value":"delhi"},
+        {"state":"Interstate - Seperate Tax", "value":"other"}
+    ],
+    "invoice_list": [
+        {"invoice_no":"creation","company":"asdf","comapny_register":"register","gst_no":"asdf","date":"asdf","card":{"price":40,"viewValue":"PCV Cards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"holder":{"price":5,"viewValue":"Normal White Transparent Holders","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"lanyard":{"price":30,"viewValue":"12mm Digital Lanyards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"card_s":"1","holder_s":"2","lanyard_s":"3","card_q":"1","holder_q":"1","lanyard_q":"1","location":{"state":"Delhi","value":"delhi"},"discount":"5"},
+        {"invoice_no":"creation","company":"asdf","comapny_register":"register","gst_no":"asdf","date":"asdf","card":{"price":40,"viewValue":"PCV Cards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"holder":{"price":5,"viewValue":"Normal White Transparent Holders","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"lanyard":{"price":30,"viewValue":"12mm Digital Lanyards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"card_s":"1","holder_s":"2","lanyard_s":"3","card_q":"1","holder_q":"1","lanyard_q":"1","location":{"state":"Other","value":"other"},"discount":"5"},
+        {"invoice_no":"creation","company":"asdf","comapny_register":"register","gst_no":"asdf","date":"asdf","card":{"price":40,"viewValue":"PCV Cards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"holder":{"price":5,"viewValue":"Normal White Transparent Holders","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"lanyard":{"price":30,"viewValue":"12mm Digital Lanyards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"card_s":"1","holder_s":"2","lanyard_s":"3","card_q":"1","holder_q":"1","lanyard_q":"1","location":{"state":"Inter State: Yes","value":"yes"},"discount":"5"},
+        {"invoice_no":"creation","company":"asdf","comapny_register":"register","gst_no":"asdf","date":"asdf","card":{"price":40,"viewValue":"PCV Cards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"holder":{"price":5,"viewValue":"Normal White Transparent Holders","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"lanyard":{"price":30,"viewValue":"12mm Digital Lanyards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"card_s":"1","holder_s":"2","lanyard_s":"3","card_q":"1","holder_q":"1","lanyard_q":"1","location":{"state":"Inter State: No","value":"no"},"discount":"5"},
+        {"invoice_no":"creation","company":"asdf","comapny_register":"unregister","gst_no":"asdf","date":"asdf","card":{"price":40,"viewValue":"PCV Cards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"holder":{"price":5,"viewValue":"Normal White Transparent Holders","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"lanyard":{"price":30,"viewValue":"12mm Digital Lanyards","desc":[{"des":"Non Washable Printing"},{"des":"Both side printing"},{"des":"Dog Hook"}]},"card_s":"1","holder_s":"2","lanyard_s":"3","card_q":"1","holder_q":"1","lanyard_q":"1","location":{"state":"Inter State: No","value":"no"},"discount":"5"}
+    ]
+}
