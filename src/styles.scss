@@ -29,6 +29,18 @@ form{
         &.w-30{
             width: 30%;
         }
+        &.w-40{
+            width: 40%;
+        }
+        &.w-50{
+            width: 50%;
+        }
+        &.w-60{
+            width: 60%;
+        }
+        &.w-70{
+            width: 70%;
+        }
         &.w-100{
             width: 100%;
         }
@@ -41,13 +53,25 @@ ul.small{
     padding-left:18px;
     margin-bottom: 0;
 }
+.bank_table{
+    display: none;
+}
 
 @media print{
     .print_hide{
         display: none;
     }
+    .bank_table{
+        display: table;
+    }
     table, tr, td, th, tbody, thead, tfoot {
         page-break-inside: auto !important;
+    }
+    .bank_table{
+        page-break-before: left;
+    }
+    .bank_table tr, .bank_table td, .bank_table th{
+        page-break-inside: inherit !important;
     }
     table tr.ng-star-inserted th{
         background: #fff;

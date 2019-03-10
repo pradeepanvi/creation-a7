@@ -62,6 +62,10 @@ export class AddInvoiceComponent implements OnInit {
   location_edit2 = false;
   location_edit_innter = false;
   location_edit_innter2 = false;
+
+  card_p:any;
+  holder_p:any;
+  lanyard_p:any;
  
   ngOnInit(){
     this.http.get(this.authService.code).subscribe(
@@ -80,6 +84,10 @@ export class AddInvoiceComponent implements OnInit {
     } else {
       this.gst_no_edit = false;
     }
+
+    this.card_p = this.invoiceForm.value.card.price;
+    this.holder_p = this.invoiceForm.value.holder.price;
+    this.lanyard_p = this.invoiceForm.value.lanyard.price;
 
     this.location = this.invoiceForm.value.location.value;
     if(this.location == 'delhi' || this.location == 'yes'){
@@ -201,6 +209,9 @@ export class AddInvoiceComponent implements OnInit {
       'card_s': new FormControl('1'),
       'holder_s': new FormControl('2'),
       'lanyard_s': new FormControl('3'),
+      'card_p' : new FormControl(''),
+      'holder_p' : new FormControl(''),
+      'lanyard_p' : new FormControl(''),
       'card_q': new FormControl('1'),
       'holder_q': new FormControl('1'),
       'lanyard_q': new FormControl('1'),
